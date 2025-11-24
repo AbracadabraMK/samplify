@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let userData = { name: "", phone: "", email: "", apps: [], collected: false, timestamp: null };
         let collectionStep = 0;
         let userDataStored = false; // Flag to track if user data has been stored in Google Sheets
-        
+
         // Check if user data exists in localStorage
         const savedUserData = localStorage.getItem('samplifyUserData');
         if (savedUserData) {
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 userDataStored = userData.storedInSheets || false;
             }
         }
-        
+
         // Log initialization for debugging
         console.log('Chatbot initialized with user data:', userData);
 
@@ -299,8 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Remove all non-digit characters
             const cleaned = phone.replace(/\D/g, '');
             // Check if it's exactly 10 digits or 11 digits starting with 1
-            return (cleaned.length === 10 && /^\d{10}$/.test(cleaned)) || 
-                   (cleaned.length === 11 && /^1\d{10}$/.test(cleaned));
+            return (cleaned.length === 10 && /^\d{10}$/.test(cleaned)) ||
+                (cleaned.length === 11 && /^1\d{10}$/.test(cleaned));
         }
 
         function isValidEmail(email) {
@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 userData.email = msg;
                 collectionStep++;
-                
+
                 // Create checkbox options message
                 const optionsMessage = document.createElement("div");
                 optionsMessage.className = "message bot-message";
@@ -354,10 +354,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button id="submitApps" style="margin-top: 10px; padding: 8px 15px; background: #2363d5; color: white; border: none; border-radius: 5px; cursor: pointer;">Submit</button>
                     </div>
                 `;
-                
+
                 chatMessages.appendChild(optionsMessage);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-                
+
                 // Add event listener for the submit button
                 setTimeout(() => {
                     const submitBtn = document.getElementById("submitApps");
@@ -372,27 +372,27 @@ document.addEventListener('DOMContentLoaded', () => {
         function handleAppSelection() {
             const samplifyApp = document.getElementById("samplifyApp");
             const noiseMapApp = document.getElementById("noiseMapApp");
-            
+
             const selectedApps = [];
             if (samplifyApp.checked) selectedApps.push(samplifyApp.value);
             if (noiseMapApp.checked) selectedApps.push(noiseMapApp.value);
-            
+
             // Store selected apps in userData
             userData.apps = selectedApps;
             userData.collected = true;
-            
+
             // Set timestamp only once when user data is first collected
             if (!userData.timestamp) {
                 userData.timestamp = new Date().toISOString();
             }
-            
+
             // Save to localStorage
             localStorage.setItem('samplifyUserData', JSON.stringify(userData));
-            
+
             // Remove the options message
             const optionsMessage = document.querySelector('.bot-message:last-child');
             if (optionsMessage) optionsMessage.remove();
-            
+
             // Add confirmation message
             let confirmationText = "Your information is saved!";
             if (selectedApps.length > 0) {
@@ -401,10 +401,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 confirmationText += " No apps selected.";
             }
             confirmationText += " How can I assist you today?";
-            
+
             addMessage(confirmationText, "bot");
             console.log("User Data Collected ➜", userData);
-            
+
             // Update the data being sent to Google Sheets to include apps (only once)
             if (!userDataStored) {
                 storeUserDataWithApps(userData);
@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function addMessage(text, sender) {
             const msgDiv = document.createElement("div");
             msgDiv.className = `message ${sender}-message`;
-            
+
             // Format the message content for better readability
             if (sender === "bot") {
                 // For bot messages, preserve line breaks and format lists
@@ -449,29 +449,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 typingIndicator.textContent = "...";
                 chatMessages.appendChild(typingIndicator);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-                
+
                 // Get response from enhanced Gemini API with Google Docs knowledge
                 console.log('Processing user message with enhanced Gemini:', userMsg);
                 const botReply = await getEnhancedGeminiResponse(userMsg, userData);
-                
+
                 // Remove typing indicator
                 chatMessages.removeChild(typingIndicator);
-                
+
                 // Log the response for debugging
                 console.log('Enhanced Gemini response:', botReply);
-                
+
                 addMessage(botReply, "bot");
                 storeChat("bot", botReply);
             } catch (error) {
                 console.error("Enhanced Gemini API Error:", error);
-                
+
                 // Remove typing indicator
                 const typingIndicators = chatMessages.querySelectorAll(".typing-indicator");
                 typingIndicators.forEach(indicator => indicator.remove());
-                
+
                 // Show error message to user
                 addMessage("I'm having trouble accessing my knowledge base right now. Let me try to answer based on my general knowledge.", "bot");
-                
+
                 // Fallback to standard Gemini API
                 try {
                     const fallbackReply = await getGeminiResponse(userMsg, userData);
@@ -548,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("Chat Message Saved ✔");
             }).catch(err => console.error("Sheet Error:", err));
         }
-        
+
         // ====== CLEAR USER DATA FROM LOCALSTORAGE ======
         function clearUserData() {
             localStorage.removeItem('samplifyUserData');
@@ -557,10 +557,10 @@ document.addEventListener('DOMContentLoaded', () => {
             userDataStored = false; // Reset the flag
             console.log("User data cleared from localStorage");
         }
-        
+
         // Expose clearUserData function globally for testing purposes
         window.clearSamplifyUserData = clearUserData;
-        
+
 
 
     }, 100);
@@ -669,9 +669,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
- // Hide loader after 4 seconds
-  setTimeout(() => {
-    const loader = document.getElementById("loader-screen");
-    loader.style.opacity = 0; // fade out
-    setTimeout(() => loader.style.display = "none", 600); // remove after fade
-  }, 4000);
+
+  // Wait 4 seconds after page starts loading
+  window.onload = function () {
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    }, 3000); // 4000 ms = 4 seconds
+  };
+
