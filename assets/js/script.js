@@ -668,3 +668,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+ // Hide loader after 4 seconds
+  setTimeout(() => {
+    const loader = document.getElementById("loader-screen");
+    loader.style.opacity = 0; // fade out
+    setTimeout(() => loader.style.display = "none", 600); // remove after fade
+  }, 4000);
