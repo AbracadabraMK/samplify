@@ -1330,6 +1330,7 @@ header.scrolled .menu-toggle {
 }
 
 .features-list {
+    text-align: left;
     list-style: none;
     padding: 0;
 }
@@ -4063,7 +4064,7 @@ footer {
 
     .noise-feature-card {
         flex: 1;
-        min-width: 250px;
+        min-width: 260px;
         text-align: left;
     }
 
