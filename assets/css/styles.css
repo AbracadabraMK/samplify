@@ -4527,7 +4527,7 @@ footer {
 .faq-container {
     max-width: 800px;
     margin: 50px auto 0;
-    padding: 0 20px;
+    padding: 0 4px;
     position: relative;
     z-index: 2;
 }
