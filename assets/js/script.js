@@ -568,93 +568,93 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Protection against inspection and image saving
-// (function () {
-//     // Disable right-click context menu
-//     document.addEventListener('contextmenu', function (e) {
-//         e.preventDefault();
-//         return false;
-//     });
+(function () {
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+        return false;
+    });
 
-//     // Disable common keyboard shortcuts for developer tools
-//     document.addEventListener('keydown', function (e) {
-//         // F12 key
-//         if (e.keyCode === 123) {
-//             e.preventDefault();
-//             return false;
-//         }
+    // Disable common keyboard shortcuts for developer tools
+    document.addEventListener('keydown', function (e) {
+        // F12 key
+        if (e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
 
-//         // Ctrl+Shift+I
-//         if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-//             e.preventDefault();
-//             return false;
-//         }
+        // Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+            e.preventDefault();
+            return false;
+        }
 
-//         // Ctrl+Shift+J
-//         if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
-//             e.preventDefault();
-//             return false;
-//         }
+        // Ctrl+Shift+J
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+            e.preventDefault();
+            return false;
+        }
 
-//         // Ctrl+U (view source)
-//         if (e.ctrlKey && e.keyCode === 85) {
-//             e.preventDefault();
-//             return false;
-//         }
+        // Ctrl+U (view source)
+        if (e.ctrlKey && e.keyCode === 85) {
+            e.preventDefault();
+            return false;
+        }
 
-//         // Ctrl+S (save page)
-//         if (e.ctrlKey && e.keyCode === 83) {
-//             e.preventDefault();
-//             return false;
-//         }
+        // Ctrl+S (save page)
+        if (e.ctrlKey && e.keyCode === 83) {
+            e.preventDefault();
+            return false;
+        }
 
-//         // Ctrl+Shift+C (inspect element)
-//         if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
-//             e.preventDefault();
-//             return false;
-//         }
-//     });
+        // Ctrl+Shift+C (inspect element)
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+            e.preventDefault();
+            return false;
+        }
+    });
 
-//     // Disable image drag and drop
-//     document.addEventListener('dragstart', function (e) {
-//         if (e.target.tagName === 'IMG') {
-//             e.preventDefault();
-//             return false;
-//         }
-//     });
+    // Disable image drag and drop
+    document.addEventListener('dragstart', function (e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
 
-//     // Additional protection against screenshot tools
-//     let devtools = {
-//         open: false,
-//         orientation: null
-//     };
+    // Additional protection against screenshot tools
+    let devtools = {
+        open: false,
+        orientation: null
+    };
 
-//     const threshold = 160;
+    const threshold = 160;
 
-//     setInterval(() => {
-//         if (window.outerHeight - window.innerHeight > threshold ||
-//             window.outerWidth - window.innerWidth > threshold) {
-//             if (!devtools.open) {
-//                 devtools.open = true;
-//                 // Optionally redirect or show a message
-//                 // window.location.href = 'about:blank';
-//             }
-//         } else {
-//             devtools.open = false;
-//         }
-//     }, 500);
+    setInterval(() => {
+        if (window.outerHeight - window.innerHeight > threshold ||
+            window.outerWidth - window.innerWidth > threshold) {
+            if (!devtools.open) {
+                devtools.open = true;
+                // Optionally redirect or show a message
+                // window.location.href = 'about:blank';
+            }
+        } else {
+            devtools.open = false;
+        }
+    }, 500);
 
-//     // Disable selection of text
-//     document.addEventListener('selectstart', function (e) {
-//         e.preventDefault();
-//         return false;
-//     });
+    // Disable selection of text
+    document.addEventListener('selectstart', function (e) {
+        e.preventDefault();
+        return false;
+    });
 
-//     // Disable dragging of elements
-//     document.addEventListener('dragstart', function (e) {
-//         e.preventDefault();
-//         return false;
-//     });
-// })();
+    // Disable dragging of elements
+    document.addEventListener('dragstart', function (e) {
+        e.preventDefault();
+        return false;
+    });
+})();
 
 // FAQ Section Functionality
 document.addEventListener('DOMContentLoaded', function () {
